@@ -1,0 +1,77 @@
+$ivory: #e6ddb9;
+$light: #d4cca9;
+$sand: #d9cfaa;
+$beige: #f5edcd;
+$white: #fff;
+$black: #111;
+$dark: #222b20;
+$dark-2: #212726;
+$purple: #7e4ad1;
+$sea: #34b1aa;
+$green: #23a901;
+$light-green: #9dc16e;
+$dark-green: #394e1f;
+$grey: #c3c3c3;
+$yellow: #c8b241;
+$pink: #e16fb4;
+
+$monitor-screen-width: 2500px;
+$large-screen-width: 3000px;
+$tablet-screen-width: 1100px;
+$air-screen-width: 820px;
+$phablet-screen-width: 768px;
+$mobile-screen-width: 550px;
+$mini-screen-width: 350px;
+
+@mixin font($size: 18px, $color: $dark, $weight: 700, $line-height: 1) {
+  @if $size != _ {
+    font-size: $size;
+  }
+  @if $color != _ {
+    color: $color;
+  }
+
+  font-weight: $weight;
+  line-height: $line-height;
+}
+
+@mixin hideScrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+@mixin large {
+  @media only screen and (min-width: #{$large-screen-width}) {
+    @content;
+  }
+}
+@mixin monitor {
+  @media only screen and (min-width: #{$monitor-screen-width}) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media only screen and (max-width: #{$tablet-screen-width}) {
+    @content;
+  }
+}
+@mixin air {
+  @media only screen and (max-width: #{$air-screen-width}) {
+    @content;
+  }
+}
+@mixin phablet {
+  @media only screen and (max-width: #{$phablet-screen-width}) {
+    @content;
+  }
+}
+@mixin mobile {
+  @media only screen and (max-width: #{$mobile-screen-width}) {
+    @content;
+  }
+}
+@mixin mini {
+  @media only screen and (max-width: #{$mini-screen-width}) {
+    @content;
+  }
+}
