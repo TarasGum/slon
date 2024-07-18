@@ -277,7 +277,7 @@ const clearData = () => {
 </script>
 
 <template>
-  <div>
+  <div class="text-[var(--Grey)]">
     <Sheet
       :open="isOpen"
       @update:open="
@@ -312,91 +312,42 @@ const clearData = () => {
       </DialogTrigger>
       <SheetContent
         class="bg-[#23232381] backdrop-blur-[5.5px] !min-w-[70vw] max-sm:!min-w-[100vw] border rounded-s-3xl py-2 dark pt-8 text-primary">
-        <SheetHeader class="mb-10">
-          <SheetTitle>Додати замовлення</SheetTitle>
-        </SheetHeader>
-        <div class="h-[75vh] overflow-scroll pr-4 pl-1">
-          <div class="flex justify-between w-full">
-            <Popover v-model:open="open">
-              <PopoverTrigger class="w-[30%]">
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  :aria-expanded="open"
-                  class="w-full">
-                  <div>
-                    {{ clientName }}
-                  </div></Button
-                >
-              </PopoverTrigger>
-              <PopoverContent class="bg-background mt-2 w-full border dark">
-                <Command v-model="commandValue">
-                  <!-- <CommandInput
-                    v-model="customerSearch"
-                    @input="handleCustomerSearch"
-                    type="text"
-                    placeholder="Пошук клієнтів" /> -->
+        <SheetHeader class="border-b pb-4 mb-5 flex flex-row items-center">
+          <SheetTitle class="text-[36px] mr-2.5">Нове ЗАМОВЛЕННЯ</SheetTitle>
 
-                  <div class="mt-2">
-                    <input
-                      v-model="customerSearch"
-                      @input="handleCustomerSearch"
-                      type="text"
-                      class="border w-full px-2 bg-background rounded"
-                      placeholder="Введіть імʼя користувача" />
-                  </div>
-
-                  <CommandGroup class="my-2"
-                    ><div
-                      class="flex justify-center items-center"
-                      v-if="!customersData || customersData.length === 0">
-                      Клієнтів не знайдено.
-                    </div>
-                    <CommandItem
-                      v-for="customer in customersData"
-                      :key="customer.id"
-                      class="hover:bg-muted cursor-pointer transition-all"
-                      :value="'' + customer.id"
-                      @click="
-                        (newOrderClient = customer.id),
-                          (clientName =
-                            customer.last_name +
-                            ' ' +
-                            customer.first_name +
-                            ' ' +
-                            customer.surname +
-                            '(ID:' +
-                            customer.id +
-                            ')'),
-                          (open = false)
-                      ">
-                      {{ customer.last_name }} {{ customer.first_name }}
-                      {{ customer.surname }} (ID:{{ customer.id }})
-                    </CommandItem>
-                  </CommandGroup>
-                </Command>
-              </PopoverContent>
-            </Popover>
+          <div>
             <Select>
-              <SelectTrigger class="w-[180px]">
+              <SelectTrigger
+                have-no-check
+                class="w-[156px] py-2 h-[32px] rounded-[10px] flex items-center justify-center"
+                :class="{
+                  'rounded-[10px] border shadow-[0px_0px_0px_2px] bg-[#191919]': true,
+                  'border-[#23A901] text-[#23A901]  shadow-[#32624A]':
+                    newOrderStatus === 'completed',
+                  'border-[#9B9B9B] text-[var(-White)]  shadow-[rgba(219,219,219,0.20)]':
+                    newOrderStatus === 'raw',
+                  'border-[#BE2F2F] text-[#BE2F2F]  shadow-[#662D2D]':
+                    newOrderStatus === 'failed',
+                }">
                 <SelectValue placeholder="Статус замовлення" />
               </SelectTrigger>
-              <SelectContent class="bg-background border dark">
+              <SelectContent
+                class="bg-[rgb(25,25,25)] border-[var(--White)] border h-fit flex flex-col rounded-[14px] gap-[10px]">
                 <SelectGroup class="my-2">
                   <SelectItem
-                    class="hover:bg-muted transition-all"
+                    class="hover:brightness-125 text-[var(--White)] transition-all rounded-[10px] border border-[#9B9B9B] bg-[#191919] shadow-[0px_0px_0px_2px_rgba(219,219,219,0.20)] w-[156px] h-[38px] flex items-center justify-center my-2.5"
                     @click="newOrderStatus = 'raw'"
                     value="raw">
                     НЕ ОПРАЦЬОВАНИЙ
                   </SelectItem>
                   <SelectItem
-                    class="hover:bg-muted transition-all"
+                    class="hover:brightness-125 text-[#23A901] transition-all rounded-[10px] border border-[#23A901] bg-[#191919] shadow-[0px_0px_0px_2px_#32624A] w-[156px] h-[38px] flex items-center justify-center mb-2.5"
                     @click="newOrderStatus = 'completed'"
                     value="completed">
                     ВИКОНАНИЙ
                   </SelectItem>
                   <SelectItem
-                    class="hover:bg-muted transition-all"
+                    class="hover:brightness-125 text-[#BE2F2F] text-[var(--White)] transition-all rounded-[10px] border border-[#BE2F2F] bg-[#191919] shadow-[0px_0px_0px_2px_#662D2D] w-[156px] h-[38px] flex items-center justify-center mb-2.5"
                     @click="newOrderStatus = 'failed'"
                     value="failed">
                     НЕУСПІШНИЙ
@@ -405,33 +356,96 @@ const clearData = () => {
               </SelectContent>
             </Select>
           </div>
-          <div class="mt-5">
-            <h2 class="text-lg mb-1">Коментар</h2>
-            <Textarea
-              v-model="newOrderMessage"
-              placeholder="Введіть коментар" />
+
+          <MyButton
+            size="md"
+            color="--Light-Green"
+            iconPosition="left"
+            :disabled="!isOrderValid"
+            @click="getOrder"
+            class="ml-auto"
+            :icon="true">
+            Додати
+          </MyButton>
+        </SheetHeader>
+        <div class="h-[75vh] overflow-scroll pr-4 pl-1">
+          <div class="border-b w-full pb-5">
+            <div class="flex justify-between w-full">
+              <Popover v-model:open="open">
+                <PopoverTrigger class="w-full">
+                  <Button
+                    :variant="null"
+                    role="combobox"
+                    :aria-expanded="open"
+                    :class="{
+                      'text-[var(--Grey-Dark)]':
+                        clientName.toLowerCase() == 'виберіть клієнта',
+                    }"
+                    class="w-full h-10 flex items-center text-lg justify-start p-2.5 pl-4 border rounded-[10px] border-[var(--Grey-Dark)]">
+                    <div>
+                      {{ clientName }}
+                    </div></Button
+                  >
+                </PopoverTrigger>
+                <PopoverContent class="bg-background mt-2 w-full border dark">
+                  <Command v-model="commandValue">
+                    <!-- <CommandInput
+                    v-model="customerSearch"
+                    @input="handleCustomerSearch"
+                    type="text"
+                    placeholder="Пошук клієнтів" /> -->
+
+                    <div class="mt-2">
+                      <input
+                        v-model="customerSearch"
+                        @input="handleCustomerSearch"
+                        type="text"
+                        class="border w-full px-2 bg-background rounded"
+                        placeholder="Введіть імʼя користувача" />
+                    </div>
+
+                    <CommandGroup class="my-2"
+                      ><div
+                        class="flex justify-center items-center"
+                        v-if="!customersData || customersData.length === 0">
+                        Клієнтів не знайдено.
+                      </div>
+                      <CommandItem
+                        v-for="customer in customersData"
+                        :key="customer.id"
+                        class="hover:bg-muted cursor-pointer transition-all"
+                        :value="'' + customer.id"
+                        @click="
+                          (newOrderClient = customer.id),
+                            (clientName =
+                              customer.last_name +
+                              ' ' +
+                              customer.first_name +
+                              ' ' +
+                              customer.surname +
+                              '(ID:' +
+                              customer.id +
+                              ')'),
+                            (open = false)
+                        ">
+                        {{ customer.last_name }} {{ customer.first_name }}
+                        {{ customer.surname }} (ID:{{ customer.id }})
+                      </CommandItem>
+                    </CommandGroup>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+            </div>
+            <div class="mt-5">
+              <Textarea
+                v-model="newOrderMessage"
+                class="placeholder:text-[var(--Grey-Dark)] text-lg"
+                placeholder="Коментар" />
+            </div>
           </div>
 
-          <OrderItem
-            v-for="item in newOrderItems"
-            :key="item.id"
-            :item="item"
-            :qty="item.quantity"
-            not-send-delete
-            :isOpenDialog="true"
-            @minus="
-              () => {
-                --item.quantity;
-              }
-            "
-            @plus="
-              () => {
-                ++item.quantity;
-              }
-            "
-            @itemQtyData="changeOrderItem"
-            @delete-item="deleteItem" />
           <!-- <div
+
             v-for="item in itemsInNewOrder"
             :key="item.variantId"
             class="items-center my-5 gap-5 grid grid-cols-[80px_6fr_1.5fr_3fr_2fr_80px]">
@@ -462,33 +476,61 @@ const clearData = () => {
               >Видалити</Button
             >
           </div> -->
-          <AddProducts
-            @emit-res="addToOrderItems"
-            :current-items="newOrderItems" />
+          <div class="flex justify-between mt-5 mb-5 items-center">
+            <div class="text-[var(--Grey)]">Товар:</div>
+
+            <AddProducts
+              prettie-button
+              @emit-res="addToOrderItems"
+              :current-items="newOrderItems" />
+          </div>
+          <div class="border rounded-[10px]">
+            <OrderItem
+              v-for="(item, i) in newOrderItems"
+              :key="item.id"
+              :item="item"
+              :qty="item.quantity"
+              :no-last-border="i === newOrderItems.length - 1"
+              not-send-delete
+              :isOpenDialog="true"
+              @minus="
+                () => {
+                  --item.quantity;
+                }
+              "
+              @plus="
+                () => {
+                  ++item.quantity;
+                }
+              "
+              @itemQtyData="changeOrderItem"
+              @delete-item="deleteItem" />
+          </div>
           <div>
-            <h2 class="text-lg mt-5">Тип доставки</h2>
+            <div class="flex pt-5 items-center">
+              <h2 class="text-lg w-1/3 text-[var(--Grey)]">Тип доставки:</h2>
 
-            <Select>
-              <SelectTrigger class="mt-1">
-                <SelectValue placeholder="Виберіть тип доставки" />
-              </SelectTrigger>
-              <SelectContent class="bg-background border dark">
-                <SelectGroup>
-                  <SelectItem
-                    class="hover:bg-muted transition-all my-2"
-                    v-for="d in deliveries.slice(1)"
-                    :key="d.id"
-                    :value="d.slug"
-                    @click="shippingType = d.slug">
-                    {{ d.title }}
-                  </SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-
+              <Select>
+                <SelectTrigger class="w-full rounded-[10px] bg-transparent">
+                  <SelectValue placeholder="Виберіть тип доставки" />
+                </SelectTrigger>
+                <SelectContent class="bg-background border dark">
+                  <SelectGroup>
+                    <SelectItem
+                      class="hover:bg-muted transition-all my-2"
+                      v-for="d in deliveries.slice(1)"
+                      :key="d.id"
+                      :value="d.slug"
+                      @click="shippingType = d.slug">
+                      {{ d.title }}
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
             <div v-if="shippingType === 'np'" class="mt-2">
               <Select>
-                <SelectTrigger>
+                <SelectTrigger class="rounded-[10px] bg-transparent">
                   <SelectValue placeholder="Виберіть місто" />
                 </SelectTrigger>
                 <SelectContent class="bg-background border py-2 dark">
@@ -523,7 +565,7 @@ const clearData = () => {
               <Select :key="selectedCity">
                 <SelectTrigger
                   :disabled="departments.length === 0"
-                  class="mt-2">
+                  class="mt-2 text-[var(--Grey-Dark)] rounded-[10px] bg-transparent">
                   <SelectValue
                     placeholder="Виберіть відділення"
                     class="checkout-select-value" />
@@ -555,17 +597,6 @@ const clearData = () => {
             </div>
           </div>
         </div>
-
-        <SheetFooter class="border-t">
-          <div>
-            <Button
-              :disabled="!isOrderValid"
-              @click="getOrder"
-              class="mt-4 mb-2">
-              Додати
-            </Button>
-          </div>
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   </div>

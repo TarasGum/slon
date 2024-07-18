@@ -94,8 +94,8 @@ const addCustomer = handleSubmit(async (values: any) => {
 <template>
   <Sheet>
     <SheetTrigger class="h-10" as-child>
-      <MyButton size="md" color="--sand" iconPosition="left" :icon="true">
-        Додати клієнта
+      <MyButton size="md" color="--Red" iconPosition="left" :icon="true">
+        Додати витрату
       </MyButton>
       <!-- <div
         class="border flex gap-3 max-sm:h-[50px] max-[400px]:text-[20px] items-center transition-all hover:drop-shadow-[3px_4px_0px_var(--sand)] translate-z border-[var(--sand)] bg-background cursor-pointer rounded-3xl text-2xl py-2 pr-5 pl-3">

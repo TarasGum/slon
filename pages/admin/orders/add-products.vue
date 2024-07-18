@@ -82,29 +82,20 @@ const currentQty = (id: number | undefined) => {
           }
         }
       ">
-      <DialogTrigger class="mt-5 w-full">
+      <DialogTrigger class="w-full">
         <div
           v-if="!prettieButton"
           class="border rounded-md p-2 w-full hover:brightness-150 transition-all text-sm dark">
           Додати товар
         </div>
-        <div
+        <MyButton
           v-if="prettieButton"
-          class="border w-[168px] flex gap-2 -mr-2 -mt-5 h-9 px-3.5 py-2.5 items-center transition-all translate-z hover:drop-shadow-[3px_4px_0px_var(--green)] border-[var(--green)] bg-background cursor-pointer rounded-3xl text-2xl">
-          <div class="w-5 h-5 flex items-center justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none">
-              <path
-                d="M8.00065 14.6668C4.31875 14.6668 1.33398 11.682 1.33398 8.00016C1.33398 4.31826 4.31875 1.3335 8.00065 1.3335C11.6825 1.3335 14.6673 4.31826 14.6673 8.00016C14.6673 11.682 11.6825 14.6668 8.00065 14.6668ZM7.33398 7.3335H4.66732V8.66683H7.33398V11.3335H8.66732V8.66683H11.334V7.3335H8.66732V4.66683H7.33398V7.3335Z"
-                fill="white" />
-            </svg>
-          </div>
-          <h2 class="text-lg">Додати товар</h2>
-        </div>
+          size="sm"
+          color="--Light-Green"
+          iconPosition="left"
+          :icon="true">
+          Нове замовлення
+        </MyButton>
       </DialogTrigger>
       <DialogContent
         class="bg-background dark !min-w-[80vw] !rounded-2xl border h-[573px] flex flex-col text-primary">

@@ -4,6 +4,7 @@ const props = defineProps<{
   item: any;
   qty?: number;
   isOpenDialog: boolean;
+  noLastBorder?: boolean;
 }>();
 const currentQty = props.item.quantity;
 const emit = defineEmits<{
@@ -52,7 +53,8 @@ const showTooltip = ref(false);
 
 <template>
   <div
-    class="grid !grid-cols-[1fr_1.5fr_20%_0.7fr_1fr_60px] max-sm:hidden min-h-12 items-center last:border-b-0 border-b text-sm p-2 w-full">
+    :class="{ 'border-b-0': noLastBorder }"
+    class="grid !grid-cols-[1fr_1.5fr_20%_0.7fr_1fr_60px] max-sm:hidden min-h-12 items-center border-b text-sm p-2 w-full">
     <div class="border text-center w-fit px-2 border-primary mr-2 rounded-md">
       {{ item.variant?.product?.category.name }}
     </div>

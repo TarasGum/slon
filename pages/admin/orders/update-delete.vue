@@ -86,12 +86,18 @@ onUnmounted(() => {
             if (!value) {
               isOpen = false;
               isDeleteOpen = false;
+              dontClose = false;
             }
           }
         ">
         <DialogTrigger>
           <div
-            @click.stop="isDeleteOpen = true"
+            @click.stop="
+              () => {
+                isDeleteOpen = true;
+                dontClose = true;
+              }
+            "
             class="text-sm p-2 cursor-pointer w-8 h-8 rounded-[10px] transition hover:bg-muted">
             <img
               src="@/assets/images/delete-bin.svg"

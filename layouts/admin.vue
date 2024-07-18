@@ -226,6 +226,58 @@ const isShow = computed(() => {
           <h2>Категорії</h2>
         </div></NuxtLink
       >
+      <NuxtLink
+        to="/admin/cost"
+        :class="{
+          'border-[var(--Red)] bg-[#191919]':
+            $router.currentRoute.value.fullPath === '/admin/cost',
+          'hover:bg-[var(--Grey-Dark)]':
+            $router.currentRoute.value.fullPath !== '/admin/cost',
+        }"
+        class="border w-full translate-z bg-[#161616] rounded-lg py-1 px-2"
+        ><div class="flex gap-4 items-center">
+          <div
+            class="w-5 h-5 rounded-sm flex justify-center items-center bg-[var(--Red)]">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none">
+              <path
+                d="M8.16957 1.16846C10.7469 1.16846 12.8362 3.25779 12.8362 5.83509C12.8362 7.72784 11.7095 9.35732 10.0901 10.0895C9.35799 11.7087 7.72863 12.8351 5.83623 12.8351C3.25889 12.8351 1.16956 10.7458 1.16956 8.16843C1.16956 6.27604 2.29598 4.64672 3.91492 3.91439C4.64735 2.2952 6.27688 1.16846 8.16957 1.16846ZM6.41957 5.25179H5.25289V5.83509C4.44747 5.83509 3.79456 6.48802 3.79456 7.29343C3.79456 8.06664 4.39629 8.69932 5.15701 8.74867L5.25289 8.75176H6.41957L6.47201 8.75649C6.60804 8.78116 6.71123 8.90028 6.71123 9.04343C6.71123 9.18664 6.60804 9.30575 6.47201 9.33043L6.41957 9.33509H4.08622V10.5018H5.25289V11.0851H6.41957V10.5018C7.22498 10.5018 7.8779 9.84889 7.8779 9.04343C7.8779 8.27028 7.27613 7.63759 6.51547 7.58824L6.41957 7.58509H5.25289L5.20047 7.58043C5.0644 7.55575 4.96122 7.43664 4.96122 7.29343C4.96122 7.15028 5.0644 7.03116 5.20047 7.00649L5.25289 7.00176H7.58623V5.83509H6.41957V5.25179ZM8.16957 2.33512C7.12919 2.33512 6.19481 2.78905 5.55375 3.50965C5.64748 3.50461 5.74152 3.50179 5.83623 3.50179C8.41358 3.50179 10.5029 5.59113 10.5029 8.16843C10.5029 8.26334 10.5 8.3576 10.4945 8.45105C11.2155 7.81014 11.6696 6.87564 11.6696 5.83509C11.6696 3.90213 10.1026 2.33512 8.16957 2.33512Z"
+                fill="#DBDBDB" />
+            </svg>
+          </div>
+          <h2>Витрати</h2>
+        </div></NuxtLink
+      >
+      <NuxtLink
+        to="/admin/profile"
+        :class="{
+          'border-[var(--Violet)] bg-[#191919]':
+            $router.currentRoute.value.fullPath === '/admin/profile',
+          'hover:bg-[var(--Grey-Dark)]':
+            $router.currentRoute.value.fullPath !== '/admin/profile',
+        }"
+        class="border w-full translate-z bg-[#161616] rounded-lg py-1 px-2"
+        ><div class="flex gap-4 items-center">
+          <div
+            class="w-5 h-5 rounded-sm flex justify-center items-center bg-[var(--Violet)]">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none">
+              <path
+                d="M6.99998 9.91699C9.13638 9.91699 11.0046 10.8358 12.0208 12.2064L10.9463 12.7147C10.1193 11.7345 8.66097 11.0837 6.99998 11.0837C5.33899 11.0837 3.88068 11.7345 3.05367 12.7147L1.97961 12.2059C2.9959 10.8356 4.86385 9.91699 6.99998 9.91699ZM6.99998 1.16699C8.6108 1.16699 9.91665 2.47283 9.91665 4.08366V5.83366C9.91665 7.44448 8.6108 8.75033 6.99998 8.75033C5.38915 8.75033 4.08332 7.44448 4.08332 5.83366V4.08366C4.08332 2.47283 5.38915 1.16699 6.99998 1.16699Z"
+                fill="#DBDBDB" />
+            </svg>
+          </div>
+          <h2>Витрати</h2>
+        </div></NuxtLink
+      >
       <div
         @click="logout"
         class="border w-full text-[var(--Grey)] hover:bg-[var(--Grey-Dark)] transition-all cursor-pointer rounded-lg mt-auto flex gap-4 items-center bg-[#191919] p-2.5 justify-between h-10">

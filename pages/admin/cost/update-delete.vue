@@ -93,8 +93,9 @@ onUnmounted(() => {
         @update:open="
           (value) => {
             if (!value) {
-              isOpen = false;
               dontClose = false;
+
+              isOpen = false;
               isDeleteOpen = false;
             }
           }
