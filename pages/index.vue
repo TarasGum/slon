@@ -9,8 +9,8 @@ const queryCategories = computed(() => {
   return selectedCategories.join(",");
 });
 
-const { data: productData, pending: isLoadingProducts } = await useAPI(
-  "/products",
+const { data: productData, pending: isLoadingProducts } = await useFetch(
+  "https://api.slooon.shop/api/products",
   {
     query: { categories: queryCategories },
   }
@@ -27,7 +27,9 @@ const isLoading = computed(() => {
     }
   }
 });
-const { data: categoryData } = await useAPI("/categories?has_products=true");
+const { data: categoryData } = await useFetch(
+  "https://api.slooon.shop/api/categories?has_products=true"
+);
 
 const relevantCats = computed(() => {
   return categoryData.value as Category[];
